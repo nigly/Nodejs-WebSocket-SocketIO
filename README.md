@@ -89,21 +89,20 @@ class WebSocketClient{
 
 #Server code
 
+	var WebSocketServer = require('ws').Server,
+	wss = new WebSocketServer({ port: 8181 });
 
-var WebSocketServer = require('ws').Server,
-wss = new WebSocketServer({ port: 8181 });
-
-wss.on('connection', function (ws) {
-    console.log('client connect...');
-	//监听消息发送事件
-    ws.on('message', function (message) {
-        console.log("getMessage" + message);
-    });
-    //客户端关闭
-    ws.on('close', function () {
-    	console.log('client disconnect...');
-    }); 
-});
+	wss.on('connection', function (ws) {
+    		console.log('client connect...');
+		//监听消息发送事件
+		 ws.on('message', function (message) {
+			console.log("getMessage" + message);
+		});
+    		//客户端关闭
+    		ws.on('close', function () {
+    			console.log('client disconnect...');
+    		}); 
+	});
 
 
 
