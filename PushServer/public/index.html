@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>调试页面</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="jquery.min.js"></script>
+    <script src="client.js"></script>
+
+</head>
+<body>
+    <p id="status">服务链接中.......</p>
+    <table width="500">
+        <caption>登录</caption>
+        <tr>
+            <td>id:</td><td><input type="text" id="userId" value=""/></td>
+        </tr>
+        <tr>
+            <td>名称:</td><td><input type="text" id="userName" value=""/></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button id="btn_login">登录</button>
+            </td>
+        </tr>
+    </table>
+    <hr/>
+    <table>
+        <caption>发送信息</caption>
+        <tr>
+            <td>to id:</td>
+            <td><input type="text" id="toId" value=""/></td>
+        </tr>
+        <tr>
+            <td>内容</td>
+            <td>
+                <textarea name="content" id="content" cols="30" rows="10"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button id="btn_send">发送</button>
+            </td>
+        </tr>
+    </table>
+    <hr/>
+    接收内容：<span id="receiveContent"></span>
+</body>
+</html>
