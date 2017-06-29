@@ -126,4 +126,50 @@ data server --> http --> pushData --> node WebSocketServer --> websocket --> cli
 
 
 
+# java push data code
+
+
+	public static String post(String request, List<BasicNameValuePair> params) {
+		String html = "";
+		try {
+			CloseableHttpClient httpclient = HttpClients.createDefault();
+			HttpPost httppost = new HttpPost(request);
+			UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(params, "UTF-8");  
+			httppost.setEntity(formEntity);
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			html = EntityUtils.toString(entity);
+			httpclient.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+		return html;
+	}
+
+	public static void main(String[] args) {
+		int i = 0;
+		for (;;) {
+			i++;
+			String value = " Hello! " + i;
+			JSONObject data = new JSONObject();			
+			data.put("data", value);
+			
+			BasicNameValuePair basicNameValuePair = new BasicNameValuePair("data", data.toJSONString());
+			List<BasicNameValuePair> values = new ArrayList<BasicNameValuePair>(0);
+			values.add(basicNameValuePair);
+			state = post("http://192.168.5.101:8888/pushData", values);
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+
+
+
+
+
 
