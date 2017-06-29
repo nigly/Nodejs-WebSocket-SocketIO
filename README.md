@@ -105,10 +105,24 @@ class WebSocketClient{
 	});
 
 
+# Other code
+
+	node shell
+
+	npm install
+
+	node app.js 
+	or
+	node app.js debug
+
+	debug http://ip:port/index.html
+	or 
+	http://ip:port/index2.html
 
 
 
 
+data server --> http --> pushData --> node WebSocketServer --> websocket --> client 
 
 
 
