@@ -1,8 +1,10 @@
 # Android-Nodejs-WebSocket
-Android+OkHttp3+Nodejs+WebSocketServer
+
+Android OkHttp3 Nodejs WebSocketServer
 
 
-# Client  code 
+
+# Android Client  code 
 
 class WebSocketClient{
 
@@ -87,7 +89,7 @@ class WebSocketClient{
 
 
 
-#Server code
+# Nodejs WebSocket Server code
 
 	var WebSocketServer = require('ws').Server,
 	wss = new WebSocketServer({ port: 8181 });
