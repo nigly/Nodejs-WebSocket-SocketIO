@@ -226,7 +226,7 @@ data server --> http --> pushData --> node WebSocketServer --> websocket --> cli
 
 # Android Client SocketIO code
 
-
+Reference: https://github.com/nkzawa/socket.io-android-chat
 
 	class SocketIOClient {
 	    private var socket: Socket? = null
