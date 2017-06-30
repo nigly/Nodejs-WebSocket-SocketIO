@@ -7,7 +7,7 @@ import okio.ByteString
 
 class WebSocketClient{
 
-    private val WS_IP_PORT = "192.168.5.101:8181"
+    private val WS_IP_PORT = "192.168.5.108:7777"
 
     private val NORMAL_CLOSURE_STATUS = 1000
     private var client: OkHttpClient? = null
