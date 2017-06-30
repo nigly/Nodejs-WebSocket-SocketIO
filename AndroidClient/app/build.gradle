@@ -47,4 +47,8 @@ dependencies {
 
     //log
     compile 'com.safframework.log:saf-log:1.0.5'
+    compile ('io.socket:socket.io-client:0.8.3') {
+        // excluding org.json which is provided by Android
+        exclude group: 'org.json', module: 'json'
+    }
 }

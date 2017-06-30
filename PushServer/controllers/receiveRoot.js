@@ -14,13 +14,17 @@ var isEmptyObject = function(obj){
  * 接收信息
  */
 exports.pushMessage = function(req, res, next){
-    
+    //req.body为空？？
     var body = req.body;
     body = isEmptyObject(body) ? req.query : body;
     var data = body.data;
     if(data){    	
         data = JSON.parse(data);
         for(var id in data){
+            /*var arrOps = body[id];
+            arrOps.forEach(function(ops){
+                socket.emitClient(id, 'push_message', ops);
+            });*/
             var arrOps = data[id];
             //一次推送多条信息
             socket.emitClient(id, 'push_message', arrOps);
@@ -34,17 +38,18 @@ exports.pushMessage = function(req, res, next){
 
 /**
  * 接收信息
- * 请按需重新实现
  */
 exports.pushData = function(req, res, next){
-    //
+    //req.body为空？？
     var body = req.body;
+    
     body = isEmptyObject(body) ? req.query : body;
     var data = body.data;
     if(data){
 	    socket.pushData(data);
     }else{
-    	socket.pushData(body);
+    	socket.pushData("Incorrect number format!");
+    	console.log("Incorrect number format!");
     	console.log(body)
     }
     res.end('success');

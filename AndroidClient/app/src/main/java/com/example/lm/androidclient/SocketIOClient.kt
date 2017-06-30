@@ -1,35 +1,70 @@
 package com.example.lm.androidclient
 
+import com.example.lm.androidclient.Config.PUSH_SERVER_IP_PORT
 import com.safframework.log.L
 import io.socket.client.IO
 import io.socket.client.Socket
-import io.socket.emitter.Emitter
 
 
 class SocketIOClient {
 
     private var socket: Socket? = null
 
-    fun connect() {//连接
-        socket = IO.socket("http://192.168.5.100:3000/");
-        socket!!.on(Socket.EVENT_CONNECT, object : Emitter.Listener {
+    init {
+        if (null == socket) {
+            socket = IO.socket("http://" + PUSH_SERVER_IP_PORT);
+        }
+    }
 
-            override fun call(vararg p0: Any?) {
-                L.d("---------------------------------EVENT_CONNECT")
-            }
-        }).on(Socket.EVENT_ERROR, object : Emitter.Listener {
 
-            override fun call(vararg p0: Any?) {
-                L.d("---------------------------------EVENT_ERROR")
-            }
-        }).on(Socket.EVENT_RECONNECT_FAILED, object : Emitter.Listener {
-
-            override fun call(vararg p0: Any?) {
-                L.d("---------------------------------EVENT_RECONNECT_FAILED")
-            }
-        })
+    fun connect(): SocketIOClient {//连接
         socket!!.connect()
+        return this
+    }
 
+
+    fun onConnect(): SocketIOClient {
+        socket!!.on(Socket.EVENT_CONNECT) { args ->
+            L.d("---------------------------------EVENT_CONNECT")
+        }
+        return this
+    }
+
+    fun onError(): SocketIOClient {
+        socket!!.on(Socket.EVENT_ERROR) { args ->
+            L.d("---------------------------------EVENT_ERROR")
+        }
+        return this
+    }
+
+
+    fun onConnectError(): SocketIOClient {
+        socket!!.on(Socket.EVENT_CONNECT_ERROR) { args ->
+            L.d("---------------------------------EVENT_CONNECT_ERROR")
+        }
+        return this
+    }
+
+
+    fun onConnectTimeout(): SocketIOClient {
+        socket!!.on(Socket.EVENT_CONNECT_TIMEOUT) { args ->
+            L.d("---------------------------------EVENT_CONNECT_TIMEOUT")
+        }
+        return this
+    }
+
+    fun onReconnectFailed(): SocketIOClient {
+        socket!!.on(Socket.EVENT_RECONNECT_FAILED) { args ->
+            L.d("---------------------------------EVENT_RECONNECT_FAILED")
+        }
+        return this
+    }
+
+    fun onDisconnect(): SocketIOClient {
+        socket!!.on(Socket.EVENT_DISCONNECT) { args ->
+            L.d("---------------------------------EVENT_RECONNECT_FAILED")
+        }
+        return this
     }
 
 

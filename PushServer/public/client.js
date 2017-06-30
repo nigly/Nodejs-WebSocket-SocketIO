@@ -1,7 +1,7 @@
 $(function () {
     var isConnected = false;
     var isLogined = false;
-    var socket = io.connect('192.168.5.101:3000');
+    var socket = io.connect('192.168.5.100:3000');
     var receiveContent = $('#receiveContent');
 
     //收到server的连接确认
@@ -30,8 +30,6 @@ $(function () {
         
         if(!isConnected) return;
         
-        
-        
 
         if(isLogined){
             alert('已经登录');
@@ -52,8 +50,9 @@ $(function () {
 
     $('#btn_send').click(function(){
     	
+    	console.log(909090)
         $.ajax({
-            url: 'http://192.168.5.101:3000/pushData',
+            url: 'http://192.168.5.100:3000/pushData',
             type: 'post',
             data: {key:'value'}
         });

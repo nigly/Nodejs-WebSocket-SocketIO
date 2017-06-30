@@ -1,5 +1,6 @@
 package com.example.lm.androidclient
 
+import com.example.lm.androidclient.Config.WS_IP_PORT
 import com.safframework.log.L
 import okhttp3.*
 import okio.ByteString
@@ -7,7 +8,6 @@ import okio.ByteString
 
 class WebSocketClient{
 
-    private val WS_IP_PORT = "192.168.5.108:7777"
 
     private val NORMAL_CLOSURE_STATUS = 1000
     private var client: OkHttpClient? = null
@@ -19,7 +19,7 @@ class WebSocketClient{
         if (webSocket == null) {
             val request = Request.Builder()
                     .url("ws://" + WS_IP_PORT + "/ws")
-                    .addHeader("Origin", "http://"+WS_IP_PORT)
+                    .addHeader("Origin", "http://" + WS_IP_PORT)
                     .build()
             val listener = EchoWebSocketListener()
             webSocket = client!!.newWebSocket(request, listener)
@@ -27,8 +27,7 @@ class WebSocketClient{
         }
     }
 
-    private fun sendMessage(webSocket: WebSocket?) {
-        webSocket!!.send("Union")
+    private fun sendMessage() {
         webSocket!!.send("Hello!")
         webSocket!!.send(ByteString.decodeHex("Abcd"))
     }
@@ -59,7 +58,7 @@ class WebSocketClient{
         override fun onOpen(webSocket: WebSocket?, response: Response?) {
             super.onOpen(webSocket, response)
             L.d("------------------", "onOpen")
-            sendMessage(webSocket!!)
+            sendMessage()
         }
 
         override fun onClosed(webSocket: WebSocket?, code: Int, reason: String?) {

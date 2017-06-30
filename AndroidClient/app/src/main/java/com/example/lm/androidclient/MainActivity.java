@@ -11,8 +11,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        new WebSocketClient().startRequest();
 
-        new SocketIOClient().connect();
+
+        new WebSocketClient().startRequest();
+
+
+        new SocketIOClient().onConnect()
+                .onConnectError()
+                .onConnectTimeout()
+                .onDisconnect()
+                .onReconnectFailed()
+                .connect();
     }
 }
