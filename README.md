@@ -1,6 +1,6 @@
 # Android-Nodejs-WebSocket
 
-Android OkHttp3 Nodejs WebSocketServer
+Android OkHttp3 Nodejs WebSocketServer SocketIO 
 
 # Kotlin
 https://github.com/JetBrains/kotlin
@@ -250,5 +250,16 @@ data server --> http --> pushData --> node WebSocketServer --> websocket --> cli
 
 	    }
 	}
+
+
+# Gradle 
+
+	//log
+	compile 'com.safframework.log:saf-log:1.0.5'
+	compile ('io.socket:socket.io-client:0.8.3') {
+		// excluding org.json which is provided by Android
+		exclude group: 'org.json', module: 'json'
+	}
+
 
 
