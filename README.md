@@ -6,7 +6,7 @@ Android OkHttp3 Nodejs WebSocketServer
 https://github.com/JetBrains/kotlin
 
 
-# Android Client  code 
+# Android Client WebSocket code 
 
 class WebSocketClient{
 
@@ -109,6 +109,56 @@ class WebSocketClient{
 	});
 
 
+
+# Nodejs SocketIO Server code
+
+
+	var Server = require('socket.io');
+	var _ = require("lodash");
+	var arrClient = [];
+	var io = null;
+
+	exports.init = function(server, isDebug){
+	    io = new Server().listen(server);
+
+	    //设置可以传输数据类型
+	    io.set('transports', [
+		'websocket',
+		'flashsocket',
+		'htmlfile',
+		'polling'
+	    ]);
+	    io.on('connection', function (socket) {
+		var client = {
+		    socket  : socket,
+		    socketId: socket.id
+		};
+
+		//进入链接
+		socket.on('login', function(objUser){
+		    console.log('user : ' + objUser.name + ' login ...');
+		    client.user = objUser;
+		    client.userId = objUser.id;
+
+		    arrClient.push(client);
+		});
+		//监听退出事件
+		socket.on('disconnect', function () {
+		    //去除掉线对象
+		    _.remove(arrClient, function(obj) {
+			return obj.socketId === socket.id;
+		    });
+		    if(client.user){
+			console.log('user : 1' + client.user.name + ' disconnect ...');
+		    }else{
+			console.log('user : 2 undefined disconnect ...');
+		    }
+		});
+	    });
+	};
+
+
+
 # Other code
 
 	node shell
@@ -174,6 +224,31 @@ data server --> http --> pushData --> node WebSocketServer --> websocket --> cli
 
 
 
+# Android Client SocketIO code
 
+
+
+	class SocketIOClient {
+	    private var socket: Socket? = null
+	    fun connect() {//连接
+		socket = IO.socket("http://192.168.5.100:3000/");
+		socket!!.on(Socket.EVENT_CONNECT, object : Emitter.Listener {
+		    override fun call(vararg p0: Any?) {
+			L.d("---------------------------------EVENT_CONNECT")
+		    }
+		}).on(Socket.EVENT_ERROR, object : Emitter.Listener {
+		    override fun call(vararg p0: Any?) {
+			L.d("---------------------------------EVENT_ERROR")
+		    }
+		}).on(Socket.EVENT_RECONNECT_FAILED, object : Emitter.Listener {
+
+		    override fun call(vararg p0: Any?) {
+			L.d("---------------------------------EVENT_RECONNECT_FAILED")
+		    }
+		})
+		socket!!.connect()
+
+	    }
+	}
 
 
