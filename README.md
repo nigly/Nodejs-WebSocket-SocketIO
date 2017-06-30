@@ -1,6 +1,7 @@
-# Android-Nodejs-WebSocket-SocketIO
+# Nodejs-WebSocket-SocketIO
 
-Android OkHttp3 Nodejs WebSocketServer SocketIO 
+Web Browser or Android OkHttp3 Nodejs WebSocket SocketIO 
+
 
 # Kotlin
 https://github.com/JetBrains/kotlin
@@ -262,4 +263,78 @@ Reference: https://github.com/nkzawa/socket.io-android-chat
 	}
 
 
+
+#Web Client 
+
+	var socket = io.connect('192.168.5.100:3000');
+	var receiveContent = $('#receiveContent');
+
+	//收到server的连接确认
+	//收到server的连接确认
+	socket.on('connect',function(){
+		$('#status').html('链接成功.......');
+		isConnected = true;
+		socket.emit('login', {
+			id: '0',
+			name: 'void'
+		});
+		console && console.log('connected is ok');
+	});
+
+	socket.on('message',function(param){
+		console.log(param);
+		receiveContent.html(param.message);
+	});
+
+
+    var websocket = null;
+
+    //判断当前浏览器是否支持WebSocket
+    if('WebSocket' in window){
+        websocket = new WebSocket("ws://192.168.5.101:8181/ws");
+    }
+    else{
+        alert('Not support websocket')
+    }
+
+    //连接发生错误的回调方法
+    websocket.onerror = function(){
+        setMessageInnerHTML("error");
+    };
+
+    //连接成功建立的回调方法
+    websocket.onopen = function(event){
+        setMessageInnerHTML("open");
+    }
+
+    //接收到消息的回调方法
+    websocket.onmessage = function(event){
+        setMessageInnerHTML(event.data);
+    }
+
+    //连接关闭的回调方法
+    websocket.onclose = function(){
+        setMessageInnerHTML("close");
+    }
+
+    //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+    window.onbeforeunload = function(){
+        websocket.close();
+    }
+
+    //将消息显示在网页上
+    function setMessageInnerHTML(innerHTML){
+        document.getElementById('message').innerHTML += innerHTML + '<br/>';
+    }
+
+    //关闭连接
+    function closeWebSocket(){
+        websocket.close();
+    }
+
+    //发送消息
+    function send(){
+        var message = document.getElementById('text').value;
+        websocket.send(message);
+    }
 
