@@ -1,6 +1,6 @@
 # Nodejs-WebSocket-SocketIO
 
-Web Browser or Android OkHttp3 Nodejs WebSocket SocketIO 
+Web Browser and Android and iOS OkHttp3 Nodejs WebSocket SocketIO Starscream
 
 
 # Kotlin
