@@ -343,6 +343,11 @@ Reference: https://github.com/nkzawa/socket.io-android-chat
 
 # iOS Client WebSocket code 
 
+    
+    pod install
+    
+    
+
     import Starscream
 
 
