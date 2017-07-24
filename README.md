@@ -1,6 +1,6 @@
 # Nodejs-WebSocket-SocketIO
 
-Web Browser or Android OkHttp3 Nodejs WebSocket SocketIO 
+Web Browser and Android and iOS OkHttp3 Nodejs WebSocket SocketIO Starscream
 
 
 # Kotlin
@@ -337,4 +337,68 @@ Reference: https://github.com/nkzawa/socket.io-android-chat
         var message = document.getElementById('text').value;
         websocket.send(message);
     }
+
+
+
+
+# iOS Client WebSocket code 
+
+    
+    pod install
+    
+    
+
+    import Starscream
+
+
+    class ViewController: UIViewController, WebSocketDelegate  {
+    
+	    var socket: WebSocket = WebSocket(url: URL(string: "ws://192.168.5.100:8181/ws")!)
+
+	    override func viewDidLoad() {
+		super.viewDidLoad()
+		// Do any additional setup after loading the view, typically from a nib.
+
+		connect()
+	    }
+
+	    func connect(){
+		socket.delegate = self
+		socket.connect()
+	    }
+
+	    override func didReceiveMemoryWarning() {
+		super.didReceiveMemoryWarning()
+		// Dispose of any resources that can be recreated.
+	    }
+
+	    func websocketDidConnect(_ socket: WebSocket) {
+		print("------------------->> websocketDidConnect")
+		sendMessage()
+	    }
+
+	    func sendMessage(){
+		socket.write(string: "Hello  World! ")
+	    }
+
+	    func websocketDidDisconnect(_ socket: WebSocket, error: NSError?) {
+		print("------------------->> websocketDidDisconnect")
+	    }
+
+	    func websocketDidReceiveData(_ socket: WebSocket, data: Data) {
+
+		print("------------------->> websocketDidReceiveData")
+
+	    }
+
+
+	    func websocketDidReceiveMessage(_ socket: WebSocket, text: String) {
+		print("------------------->> websocketDidReceiveMessage")
+	    }
+
+    }
+
+
+
+
 
